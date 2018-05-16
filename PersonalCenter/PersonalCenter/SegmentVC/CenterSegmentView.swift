@@ -199,10 +199,9 @@ extension CenterSegmentView:UIScrollViewDelegate{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let itemWidth = scrollView.contentSize.width / CGFloat(controllers.count)
-        //占比
-        let rate = scrollView.contentOffset.x / itemWidth
-        let offsetX = rate * (self.frame.size.width / CGFloat(controllers.count))
-        self.line.transform = CGAffineTransform(translationX: offsetX, y: 0)
+        let itemWidth = scrollView.bounds.width / CGFloat(controllers.count)
+        let offsetX = (itemWidth / scrollView.bounds.width) * scrollView.contentOffset.x
+        let xoffset = offsetX - (CGFloat(self.selectedIndex) * itemWidth)
+        self.line.transform = CGAffineTransform(translationX: xoffset, y: 0)
     }
 }
